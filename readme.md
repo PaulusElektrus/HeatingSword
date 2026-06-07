@@ -4,15 +4,6 @@ Previously I "burned up" my overproduction with an electric air heater in the ba
 
 Now I have integrated a Anker Battery Storage in my PV system and for summer it would be better to use the energy in the water heater so I decided to buy a heating sword. 😊
 
-## Control Loop
-
-I measure the household power every second.
-
-- When the Battery is fully charged the overproduction from the PV is fed in the grid
-- When for more than 10 seconds the power is <= -50 W (fed in) I switch on the heating sword globally for half an hour (~250 Wh)
-    - Except there is for more than 10 seconds >= 50 W I switch off the heating sword because there is load in the household which the battery can not compensate
-- When no overload event occured -> after half an hour the heating sword is turned off and waits for the system to be in overproduction again -> Cycle starts again
-
 ## Smart Meter
 
 This project uses a [Shelly Pro 3EM Smart Meter](https://shelly-api-docs.shelly.cloud/gen2/Devices/Gen2/ShellyPro3EM) to measure the PV overproduction.
@@ -31,6 +22,13 @@ The [Arduino Uno](https://docs.arduino.cc/hardware/uno-rev3/) then controls a Re
 
 I used a [board which contains both Arduino & ESP8266](https://github.com/PaulusElektrus/Arduino_and_ESP) which I had used in other projects already.
 The ESP does the networking stuff and the Arduino does the simple and therefore safe regulation task.  
+
+### ESP32 only
+
+I tried to use a single ESP32 board to control everything.
+But the switching process by the relais creates some EMI (I suppose).
+So the WiFi crashes.
+After I tested ESP32 only, I am now using the double architecture again.
 
 ## GUI
 
