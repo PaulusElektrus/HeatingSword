@@ -2,13 +2,14 @@
 #define HEATER_RELAIS 4
 
 /* Thresholds */
-#define POWER_ON -50.0 /* W */
-#define POWER_OFF 50.0 /* W */
+#define POWER_ON  10.0 /* W */
+#define POWER_OFF 30.0 /* W */
+#define INSTANT_POWER_OFF 600.0 /* W */
 
 /* Timing */
-#define HEATER_ON_TIMES 10         /* times */
+#define HEATER_ON_TIMES 5          /* times */
 #define HEATER_ON_DURATION 1800000 /* msec */
-#define HEATER_OFF_TIMES 10        /* times */
+#define HEATER_OFF_TIMES 5         /* times */
 #define HEATER_UPDATE_TIME 1000    /* msec */
 #define REPORT_TIME 1000           /* msec */
 
@@ -95,6 +96,13 @@ void setHeater()
       if (millis() - heater_on_timer >= HEATER_ON_DURATION)
       {
         heaterOff();
+      }
+      if (powerMeasured >= INSTANT_POWER_OFF)
+      {
+        if (millis() - heater_on_timer >= HEATER_UPDATE_TIME)
+        {
+          heaterOff();
+        }
       }
       break;
 

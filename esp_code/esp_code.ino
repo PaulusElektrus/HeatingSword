@@ -229,9 +229,10 @@ void checkTelegramBot()
     msg += " W";
     bot.sendMessage(chatId, msg, "");
   }
+}
 
   void notifyOnStateChange()
-  {
+{
     if (state != lastState)
     {
       String msg = "🔔 Heizschwert: ";
@@ -239,5 +240,4 @@ void checkTelegramBot()
       bot.sendMessage(NOTIFY_USER_ID, msg, "");
       lastState = state;
     }
-  }
 }
